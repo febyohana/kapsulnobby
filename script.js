@@ -813,10 +813,22 @@ loadState();
 
 // listen realtime firebase
 listenCloud((cloudData) => {
-  state = {
-    ...state,
-    ...cloudData
-  };
+
+  // simpan state lokal user
+  const currentTab = state.tab;
+  const currentPartner = state.currentPartner;
+
+  // update hanya data bersama
+  state.settings = cloudData.settings || state.settings;
+  state.moods = cloudData.moods || state.moods;
+  state.missions = cloudData.missions || state.missions;
+  state.scheduled = cloudData.scheduled || state.scheduled;
+  state.memories = cloudData.memories || state.memories;
+  state.secrets = cloudData.secrets || state.secrets;
+
+  // balikin state pribadi user
+  state.tab = currentTab;
+  state.currentPartner = currentPartner;
 
   renderApp();
 });
