@@ -826,11 +826,7 @@ renderApp();
 
 // countdown refresh
 setInterval(() => {
-  if (
-    state.tab === "home" ||
-    state.tab === "messages"
-  ) {
+  if (state.tab === "home") {
     renderApp();
   }
 }, 1000);
-
