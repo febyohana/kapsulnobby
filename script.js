@@ -1,3 +1,8 @@
+import {
+  saveToCloud,
+  listenCloud
+} from "./firebase.js";
+
 /* ========== LDR Companion — Vanilla JS ========== */
 
 const KEYS = {
@@ -74,6 +79,7 @@ function saveState() {
   saveJSON(KEYS.scheduled, state.scheduled);
   saveJSON(KEYS.memories, state.memories);
   saveJSON(KEYS.secrets, state.secrets);
+    saveToCloud(state);
 }
 
 /* ========== Icons (inline SVG) ========== */
@@ -802,6 +808,29 @@ function removeSecret(id) {
 
 /* ========== Init ========== */
 
+// load local dulu
 loadState();
+
+// listen realtime firebase
+listenCloud((cloudData) => {
+  state = {
+    ...state,
+    ...cloudData
+  };
+
+  renderApp();
+});
+
+// render awal
 renderApp();
-setInterval(() => { if (state.tab === 'home' || state.tab === 'messages') renderApp(); }, 1000);
+
+// countdown refresh
+setInterval(() => {
+  if (
+    state.tab === "home" ||
+    state.tab === "messages"
+  ) {
+    renderApp();
+  }
+}, 1000);
+
