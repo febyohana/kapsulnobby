@@ -73,13 +73,23 @@ function loadState() {
 }
 
 function saveState() {
+
   saveJSON(KEYS.settings, state.settings);
   saveJSON(KEYS.moods, state.moods);
   saveJSON(KEYS.missions, state.missions);
   saveJSON(KEYS.scheduled, state.scheduled);
   saveJSON(KEYS.memories, state.memories);
   saveJSON(KEYS.secrets, state.secrets);
-    saveToCloud(state);
+
+  // sync data bersama aja
+  saveToCloud({
+    settings: state.settings,
+    moods: state.moods,
+    missions: state.missions,
+    scheduled: state.scheduled,
+    memories: state.memories,
+    secrets: state.secrets
+  });
 }
 
 /* ========== Icons (inline SVG) ========== */
@@ -814,11 +824,24 @@ loadState();
 // listen realtime firebase
 listenCloud((cloudData) => {
 
-  // simpan state lokal user
+  // jangan render kalau data sama
+  const newData = JSON.stringify(cloudData);
+  const currentData = JSON.stringify({
+    settings: state.settings,
+    moods: state.moods,
+    missions: state.missions,
+    scheduled: state.scheduled,
+    memories: state.memories,
+    secrets: state.secrets
+  });
+
+  if (newData === currentData) return;
+
+  // simpan UI lokal user
   const currentTab = state.tab;
   const currentPartner = state.currentPartner;
 
-  // update hanya data bersama
+  // sync data bersama saja
   state.settings = cloudData.settings || state.settings;
   state.moods = cloudData.moods || state.moods;
   state.missions = cloudData.missions || state.missions;
@@ -826,7 +849,7 @@ listenCloud((cloudData) => {
   state.memories = cloudData.memories || state.memories;
   state.secrets = cloudData.secrets || state.secrets;
 
-  // balikin state pribadi user
+  // balikin UI pribadi
   state.tab = currentTab;
   state.currentPartner = currentPartner;
 
@@ -838,10 +861,7 @@ renderApp();
 
 // countdown refresh
 setInterval(() => {
-  if (
-    state.tab === "home" ||
-    state.tab === "messages"
-  ) {
+  if (state.tab === "home") {
     renderApp();
   }
 }, 1000);
