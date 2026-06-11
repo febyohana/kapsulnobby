@@ -824,8 +824,8 @@ loadState();
 // listen realtime firebase
 listenCloud((cloudData) => {
 
-  // jangan render kalau data sama
-  const newData = JSON.stringify(cloudData);
+  if (!cloudData) return;
+
   const currentData = JSON.stringify({
     settings: state.settings,
     moods: state.moods,
@@ -835,25 +835,33 @@ listenCloud((cloudData) => {
     secrets: state.secrets
   });
 
-  if (newData === currentData) return;
+  const incomingData = JSON.stringify(cloudData);
 
-  // simpan UI lokal user
+  // kalau data sama, jangan render ulang
+  if (currentData === incomingData) return;
+
+  // simpan state lokal user
   const currentTab = state.tab;
-  const currentPartner = state.currentPartner;
+  const currentSecret = state.secretUnlocked;
 
-  // sync data bersama saja
-  state.settings = cloudData.settings || state.settings;
-  state.moods = cloudData.moods || state.moods;
-  state.missions = cloudData.missions || state.missions;
-  state.scheduled = cloudData.scheduled || state.scheduled;
-  state.memories = cloudData.memories || state.memories;
-  state.secrets = cloudData.secrets || state.secrets;
+  // update data cloud
+  state.settings = cloudData.settings ?? state.settings;
+  state.moods = cloudData.moods ?? state.moods;
+  state.missions = cloudData.missions ?? state.missions;
+  state.scheduled = cloudData.scheduled ?? state.scheduled;
+  state.memories = cloudData.memories ?? state.memories;
+  state.secrets = cloudData.secrets ?? state.secrets;
 
-  // balikin UI pribadi
+  // balikin UI user
   state.tab = currentTab;
-  state.currentPartner = currentPartner;
+  state.secretUnlocked = currentSecret;
 
-  renderApp();
+  // jangan rerender kalau lagi ngetik
+  const editingTabs = ["messages", "memories", "secret"];
+
+  if (!editingTabs.includes(state.tab)) {
+    renderApp();
+  }
 });
 
 // render awal
