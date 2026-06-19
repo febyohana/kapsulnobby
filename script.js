@@ -29,11 +29,13 @@ const MOODS = [
   { key: 'happy', label: 'Bahagia', emoji: '😊' },
   { key: 'love',  label: 'Sayang',  emoji: '🥰' },
   { key: 'calm',  label: 'Tenang',  emoji: '😌' },
-  { key: 'tired', label: 'Lelah',   emoji: '😴' },
+  { key: 'tired', label: 'Capek',   emoji: '😵' },
   { key: 'miss',  label: 'Kangen',  emoji: '🥺' },
-  { key: 'sad',   label: 'Sedih',   emoji: '😢' },
+  { key: 'sad',   label: 'Sedih',   emoji: '😞' },
   { key: 'angry', label: 'Kesal',   emoji: '😤' },
-  { key: 'excited', label: 'Semangat', emoji: '✨' },
+  { key: 'angry', label: 'Santai',   emoji: '😎' },
+  { key: 'Mood Self Care', label: 'Healing',   emoji: '🌱' },
+  { key: 'excited', label: 'Semangat', emoji: '💪' },
 ];
 
 const DEFAULT_MISSIONS = [
