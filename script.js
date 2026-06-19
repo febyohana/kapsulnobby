@@ -756,13 +756,41 @@ function removeMission(id) {
 }
 
 function sendMessage() {
-  const text = document.getElementById('msg-text')?.value.trim();
+
+  const text =
+    document.getElementById('msg-text')
+    ?.value.trim();
+
   if (!text) return;
-  const partner = state.settings.activePartner;
-  const to = partner === 'A' ? 'B' : 'A';
-  const unlockAt = new Date(document.getElementById('msg-unlock')?.value || Date.now() + 864e5).toISOString();
-  state.scheduled.unshift({ id: uid(), from: partner, to, text, unlockAt, createdAt: new Date().toISOString() });
-  saveState(); renderApp();
+
+  const partner =
+    state.settings.activePartner;
+
+  const to =
+    partner === 'A' ? 'B' : 'A';
+
+  const unlockAt =
+    new Date(
+      document.getElementById('msg-unlock')
+      ?.value || Date.now() + 864e5
+    ).toISOString();
+
+  state.scheduled.unshift({
+    id: uid(),
+    from: partner,
+    to,
+    text,
+    unlockAt,
+    createdAt: new Date().toISOString()
+  });
+
+  document.getElementById('msg-text').value = '';
+  document.getElementById('msg-unlock').value = '';
+
+  console.log(state.scheduled);
+
+  saveState();
+  renderApp();
 }
 
 function removeMessage(id) {
