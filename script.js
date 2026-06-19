@@ -27,7 +27,7 @@ function uid() { return Math.random().toString(36).slice(2, 10); }
 
 const MOODS = [
   { key: 'happy', label: 'Bahagia', emoji: '😊' },
-  { key: 'love',  label: 'Sayang',  emoji: '🥰' },
+  { key: 'love',  label: 'Butuh Pelukan',  emoji: '🥰' },
   { key: 'calm',  label: 'Tenang',  emoji: '😌' },
   { key: 'tired', label: 'Capek',   emoji: '😵' },
   { key: 'miss',  label: 'Kangen',  emoji: '🥺' },
@@ -35,6 +35,12 @@ const MOODS = [
   { key: 'angry', label: 'Kesal',   emoji: '😤' },
   { key: 'angry', label: 'Santai',   emoji: '😎' },
   { key: 'Mood Self Care', label: 'Healing',   emoji: '🌱' },
+  { key: 'Grateful', label: 'Bersyukur',   emoji: '🤗' },
+  { key: 'Sleepy', label: 'Ngantuk',   emoji: '😴' },
+  { key: 'Sensitive', label: 'Sensitif',   emoji: '😡' },
+  { key: 'Bete', label: 'Bete',   emoji: '🙄' },
+  { key: 'Overthinking', label: 'Overthinking',   emoji: '🤯' },
+  { key: 'Bad Day', label: 'Bad Day',   emoji: '🌧️' },
   { key: 'excited', label: 'Semangat', emoji: '💪' },
 ];
 
