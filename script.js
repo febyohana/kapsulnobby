@@ -33,7 +33,7 @@ const MOODS = [
   { key: 'miss',  label: 'Kangen',  emoji: '🥺' },
   { key: 'sad',   label: 'Sedih',   emoji: '😞' },
   { key: 'angry', label: 'Kesal',   emoji: '😤' },
-  { key: 'angry', label: 'Santai',   emoji: '😎' },
+  { key: 'Calm', label: 'Santai',   emoji: '😎' },
   { key: 'Mood Self Care', label: 'Healing',   emoji: '🌱' },
   { key: 'Grateful', label: 'Bersyukur',   emoji: '🤗' },
   { key: 'Sleepy', label: 'Ngantuk',   emoji: '😴' },
